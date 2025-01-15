@@ -90,12 +90,12 @@ namespace reedSolomon {
     function generateRedundantData(data: string[], generatorPolynomial: number[], fieldSize: number): string[] {
         let dataValues = data.map(char => char.charCodeAt(0));
         let remainder = dataValues;
-
+        let bitd = decEncode(fieldSize - 1, 2, 0).length
         for (let i = 0; i < generatorPolynomial.length; i++) {
             remainder = remainder.map((value, index) => value ^ generatorPolynomial[i]);
         }
 
-        return remainder.map(value => decEncode(value, 2, decEncode(fieldSize - 1, 2, 0).length));
+        return remainder.map(value => decEncode(value, 2, bitd));
     }
 
     // ฟังก์ชัน Reed-Solomon Encode: การเข้ารหัสข้อมูลและเพิ่มข้อมูลสำรอง
@@ -104,8 +104,9 @@ namespace reedSolomon {
     //%group="rs encrypt"
     //%weight=10
     export function reedSolomonEncode(input: string, redundancy: number, fieldSize: number): string {
-        const originalData = stringToBits(input,decEncode(fieldSize - 1,2,0).length);
-        const encodedData: string[] = remsplit([], originalData, decEncode(fieldSize - 1, 2, 0).length);
+        let bitd = decEncode(fieldSize - 1, 2, 0).length
+        const originalData = stringToBits(input,bitd);
+        const encodedData: string[] = remsplit([], originalData, bitd);
 
         // สร้าง Generator Polynomial
         const generatorPolynomial = generateGeneratorPolynomial(redundancy, fieldSize);
@@ -114,8 +115,8 @@ namespace reedSolomon {
         const redundantData = generateRedundantData(originalData.split(''), generatorPolynomial, fieldSize);
 
         // เพิ่มข้อมูลสำรองลงในข้อมูลที่เข้ารหัส
-        for (let i = 0; i < redundantData.join('').length; i += decEncode(fieldSize - 1, 2, 0).length) {
-            encodedData.push(redundantData.join('').substr(i, decEncode(fieldSize - 1, 2, 0).length))
+        for (let i = 0; i < redundantData.join('').length; i++) {
+            encodedData.push(redundantData.join('').charAt(i))
         }
 
         return encodedData.join('');
@@ -127,10 +128,11 @@ namespace reedSolomon {
     //%group="rs encrypt"
     //%weight=5
     export function reedSolomonDecode(encodedData: string, redundancy: number, fieldSize: number): string {
+        let bitd = decEncode(fieldSize - 1, 2, 0).length
         const originalDataLength = encodedData.length - redundancy;
         const originalData = encodedData.slice(0, originalDataLength);
         const recoveredData: string[] = originalData.split('');
-
+        
         // สร้าง Generator Polynomial
         const generatorPolynomial = generateGeneratorPolynomial(redundancy, fieldSize);
 
@@ -143,7 +145,7 @@ namespace reedSolomon {
             }
         }
 
-        return bitsToString(recoveredData.join(''), decEncode(fieldSize - 1, 2, 0).length);
+        return bitsToString(recoveredData.join(''), bitd);
     }
 
     // ฟังก์ชันตรวจสอบความถูกต้องของข้อมูลสำรอง
@@ -159,8 +161,8 @@ namespace reedSolomon {
         return String.fromCharCode(parseInt(redundantData, 2));
     }
 
-    let redundancyLevel = 3; // จำนวนข้อมูลสำรอง
-    let fieldSize = 256; // ขนาดฟิลด์ (เช่น 256 สำหรับ GF(256))
+    let redundLevel = 3; // จำนวนข้อมูลสำรอง
+    let fieldS = 256; // ขนาดฟิลด์ (เช่น 256 สำหรับ GF(256))
 
     export enum fbitsize { bit8 = 8, bit12 = 12, bit16 = 16, bit24 = 24, bit32 = 32}
 
@@ -182,11 +184,11 @@ namespace reedSolomon {
     //%group="field"
     //%weight=10
     export function setfield(fsize: fbitsize,ft:fetype) {
-        redundancyLevel = Math.floor(Math.map(redundancyLevel,0,fieldSize,0,sumlen(fsize)))
-        fieldSize = sumlen(fsize)
+        redundLevel = Math.floor(Math.map(redundLevel,0,fieldS,0,sumlen(fsize)))
+        fieldS = sumlen(fsize)
         let myrsf:rsfield; 
-        myrsf.redun = redundancyLevel
-        myrsf.fsize = fieldSize
+        myrsf.redun = redundLevel
+        myrsf.fsize = fieldS
         return getfield(myrsf,ft)
     }
 
