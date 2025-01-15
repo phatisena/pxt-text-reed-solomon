@@ -198,7 +198,7 @@ namespace reedSolomon {
 
     export enum fetype { redund = 1, fieldsize = 2}
 
-    //%blockid=reedSolomon_setfield
+    //%blockid=reedSolomon_getfield
     //%block="get $myrsf in $ft"
     //%group="field"
     //%weight=5
