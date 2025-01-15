@@ -1,4 +1,4 @@
-// meta={"simUrl":"https://trg-arcade.userpxt.io/v1.12.58/---simulator","cdnUrl":"https://cdn.makecode.com","version":"0.2.0","target":"arcade","targetVersion":"1.12.58","repo":"phatisena/pxt-text-reed-solomon"}
+// meta={"simUrl":"https://trg-arcade.userpxt.io/v1.12.58/---simulator","cdnUrl":"https://cdn.makecode.com","version":"0.2.1","target":"arcade","targetVersion":"1.12.58","repo":"phatisena/pxt-text-reed-solomon"}
 // total=1255721 new=5.84% cached=88.49% other=5.67%
 (function (ectx) {
 'use strict';
@@ -429,7 +429,7 @@ const pxsim_pxtrt = pxsim.pxtrt;
 const pxsim_numops = pxsim.numops;
 
 
-function _main___P247995(s) {
+function _main___P249168(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -831,13 +831,13 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-_main___P247995.info = {"start":0,"length":0,"line":0,"column":0,"endLine":0,"endColumn":0,"fileName":"main.ts","functionName":"<main>","argumentNames":[]}
-_main___P247995.continuations = [  ]
+_main___P249168.info = {"start":0,"length":0,"line":0,"column":0,"endLine":0,"endColumn":0,"fileName":"main.ts","functionName":"<main>","argumentNames":[]}
+_main___P249168.continuations = [  ]
 
-function _main___P247995_mk(s) {
+function _main___P249168_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: _main___P247995, depth: s.depth + 1,
+        parent: s, fn: _main___P249168, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
@@ -42328,5 +42328,5 @@ const sprites_BaseSpriteSayRenderer__C222441_VT = mkVTable({
 
 const breakpoints = setupDebugger(1, [])
 
-return _main___P247995
+return _main___P249168
 })
