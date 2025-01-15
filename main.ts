@@ -166,7 +166,7 @@ namespace reedSolomon {
 
     export enum fbitsize { bit8 = 8, bit12 = 12, bit16 = 16, bit24 = 24, bit32 = 32}
 
-    function sumlen (bitc: number) {
+    function sumlen(bitc: number) {
         let val = 0
         for (let i = 0;i < bitc;i++) {
             if (val <= 0) { val = 2} else { val = val * 2}
@@ -174,7 +174,7 @@ namespace reedSolomon {
         return val
     }
 
-    interface rsfield {
+    export interface rsfield {
         redun:number,
         fsize:number
     }
