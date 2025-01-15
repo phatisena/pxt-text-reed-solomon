@@ -1,7 +1,7 @@
 
-//$block="reed solomon"
-//$color="#31debe"
-//$icon="\uf1c6"
+//%block="reed solomon"
+//%color="#31debe"
+//%icon="\uf1c6"
 namespace reedSolomon {
 
         let anmt = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
