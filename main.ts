@@ -166,10 +166,14 @@ namespace reedSolomon {
 
     export enum fbitsize { bit8 = 8, bit12 = 12, bit16 = 16, bit24 = 24, bit32 = 32}
 
-    function sumlen(bitc: number) {
+    function sumlen(bitc: number):number {
         let val = 0
         for (let i = 0;i < bitc;i++) {
-            if (val <= 0) { val = 2} else { val = val * 2}
+            if (val <= 0) {
+                val = 2
+            } else {
+                val *= 2
+            }
         }
         return val
     }
@@ -180,20 +184,24 @@ namespace reedSolomon {
     }
 
     //%blockid=reedSolomon_setfield
-    //%block="get $fsize as $ft"
+    //%block="get $fsize as redund and field"
     //%group="field"
     //%weight=10
-    export function setfield(fsize: fbitsize,ft:fetype) {
+    export function setfield(fsize: fbitsize) {
         redundLevel = Math.floor(Math.map(redundLevel,0,fieldS,0,sumlen(fsize)))
         fieldS = sumlen(fsize)
-        let myrsf:rsfield; 
+        let myrsf:rsfield = null; 
         myrsf.redun = redundLevel
         myrsf.fsize = fieldS
-        return getfield(myrsf,ft)
+        return myrsf
     }
 
     export enum fetype { redund = 1, fieldsize = 2}
 
+    //%blockid=reedSolomon_setfield
+    //%block="get $myrsf in $ft"
+    //%group="field"
+    //%weight=5
     function getfield(myrsf:rsfield,ft:fetype) {
         switch (ft) {
             case 1:
