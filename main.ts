@@ -202,7 +202,7 @@ namespace reedSolomon {
     //%block="get $myrsf in $ft"
     //%group="field"
     //%weight=5
-    function getfield(myrsf:rsfield,ft:fetype) {
+    export function getfield(myrsf:rsfield,ft:fetype) {
         switch (ft) {
             case 1:
             return myrsf.redun
